@@ -1,0 +1,17 @@
+@import '../public/fonts/fonts.scss';
+@import 'variaveis.scss';
+body {
+    padding : 0;
+    margin: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: $fontRegular;
+    font-size: 14px;
+}

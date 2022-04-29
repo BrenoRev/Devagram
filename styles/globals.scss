@@ -43,6 +43,14 @@ input {
 
 }
 
+.mensagemValidacao {
+    display: block;
+    color: $vermelho;
+    font-size: 90%;
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+
 .desktop {
     @media screen and (min-width : $desktopBreakpoint) {
         display: block;

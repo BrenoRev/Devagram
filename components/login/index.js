@@ -5,12 +5,20 @@ import imagemLogo from "../../public/images/logo.svg";
 import Image from 'next/image';
 import Botao from "../botao";
 import Link from "next/link";
+import { validarEmail, validarSenha } from "../../utils/validadores"
 import { useState } from "react";
 
 export default function Login() {
 
    const [email, setEmail ] = useState('');
    const [senha, setSenha ] = useState('');
+
+   const validarFormulario = () => {
+    return (
+        validarEmail(email) 
+        && validarSenha(senha)
+    )
+}
 
     return (
         <section className={'paginaLogin paginaPublica'}>
@@ -31,6 +39,8 @@ export default function Login() {
                         tipo="email"
                         aoAlterarValor={(event) => setEmail(event.target.value)}
                         valor={email}
+                        mensagemValidacao="O endereço informado é inválido"
+                        exibirMensagemValidacao={email && !validarEmail(email)}
                        />
 
                         <InputPublico 
@@ -39,12 +49,14 @@ export default function Login() {
                         tipo="password"
                         aoAlterarValor={(event) => setSenha(event.target.value)}
                         valor={senha}
+                        mensagemValidacao="A senha deve ter no mínimo 4 caracteres"
+                        exibirMensagemValidacao={senha && !validarSenha(senha)}
                        />
 
                        <Botao 
                             texto="Login"
                             tipo="submit"
-                            desabilitado={false}
+                            desabilitado={!validarFormulario()}
                             />
                     </form>
 

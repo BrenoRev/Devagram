@@ -1,7 +1,6 @@
 import Botao from '../../components/botao';
 import InputPublico from '../../components/inputPublico';
 import UploadImagem from '../../components/uploadImagem';
-import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import imagemLogo from '../../public/images/logo.svg';
@@ -9,6 +8,8 @@ import imagemUsuarioAtivo from '../../public/images/usuarioAtivo.svg';
 import imagemEnvelope from '../../public/images/envelope.svg';
 import imagemChave from '../../public/images/chave.svg';
 import imagemAvatar from '../../public/images/avatar.svg';
+import { validarEmail, validarSenha, validarConfirmacaoSenha, validarNome } from '../../utils/validadores';
+import { useState } from 'react';
 
 export default function Cadastro() {
 
@@ -17,6 +18,15 @@ export default function Cadastro() {
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
     const [imagem, setImagem] = useState('');
+
+    const validarFormulario = () => {
+        return (
+            validarEmail(email) 
+            && validarSenha(senha)
+            && validarConfirmacaoSenha(senha, confirmarSenha)
+            && validarNome(nome) 
+        )
+    }
 
     return (
         <section className={'paginaCadastro paginaPublica'}>
@@ -45,6 +55,8 @@ export default function Cadastro() {
                         tipo="text"
                         aoAlterarValor={(event) => setNome(event.target.value)}
                         valor={nome}
+                        mensagemValidacao="O nome deve ter no mínimo 2 caracteres"
+                        exibirMensagemValidacao={nome && !validarNome(nome)}
                     />
 
                     <InputPublico
@@ -53,6 +65,8 @@ export default function Cadastro() {
                         tipo="email"
                         aoAlterarValor={(event) => setEmail(event.target.value)}
                         valor={email}
+                        mensagemValidacao="O endereço informado é inválido"
+                        exibirMensagemValidacao={email && !validarEmail(email)}
                     />
 
                     <InputPublico
@@ -61,6 +75,8 @@ export default function Cadastro() {
                         tipo="password"
                         aoAlterarValor={(event) => setSenha(event.target.value)}
                         valor={senha}
+                        mensagemValidacao="A senha deve ter no mínimo 3 caracteres"
+                        exibirMensagemValidacao={senha && !validarSenha(senha)}
                     />
 
                     <InputPublico
@@ -69,11 +85,13 @@ export default function Cadastro() {
                         tipo="password"
                         aoAlterarValor={(event) => setConfirmarSenha(event.target.value)}
                         valor={confirmarSenha}
+                        mensagemValidacao="As senhas precisam ser iguais"
+                        exibirMensagemValidacao={senha && confirmarSenha && !validarConfirmacaoSenha(senha, confirmarSenha)}
                     />
                     <Botao
                         texto="Cadastrar"
                         tipo="submit"
-                        desabilitado={false}
+                        desabilitado={!validarFormulario()}
                     />
                 </form>
 

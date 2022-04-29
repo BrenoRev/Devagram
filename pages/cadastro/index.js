@@ -62,7 +62,9 @@ export default function Cadastro() {
             );
         }
 
-       setEstaSubmetendo(false);
+        finally {
+            setEstaSubmetendo(false);
+        }
     }
 
     return (

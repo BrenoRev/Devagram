@@ -7,66 +7,98 @@ import Botao from "../botao";
 import Link from "next/link";
 import { validarEmail, validarSenha } from "../../utils/validadores"
 import { useState } from "react";
+import UsuarioService from "../../services/UsuarioService";
 
 export default function Login() {
 
-   const [email, setEmail ] = useState('');
-   const [senha, setSenha ] = useState('');
+    const usuarioService = new UsuarioService();
 
-   const validarFormulario = () => {
-    return (
-        validarEmail(email) 
-        && validarSenha(senha)
-    )
-}
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [estaSubmetendo, setEstaSubmetendo] = useState(false);
 
-    return (
-        <section className={'paginaLogin paginaPublica'}>
-                <div className="logoContainer">
-                    <Image 
-                    src={imagemLogo}
-                    alt="logoTipo"
-                    layout="fill"
-                    className="logo"
-                    />
-                </div>
+    const validarFormulario = () => {
+        return (
+            validarEmail(email)
+            && validarSenha(senha)
+        )
+    }
 
-                <div className="conteudoPaginaPublica">
-                    <form>
-                       <InputPublico 
-                        imagem = {imagemEnvelope}
-                        texto="E-mail"
-                        tipo="email"
-                        aoAlterarValor={(event) => setEmail(event.target.value)}
-                        valor={email}
-                        mensagemValidacao="O endereço informado é inválido"
-                        exibirMensagemValidacao={email && !validarEmail(email)}
-                       />
+    const aoSubmeterFormulario = async (event) => {
+        event.preventDefault();
 
-                        <InputPublico 
-                        imagem = {imagemChave}
-                        texto="Senha"
-                        tipo="password"
-                        aoAlterarValor={(event) => setSenha(event.target.value)}
-                        valor={senha}
-                        mensagemValidacao="A senha deve ter no mínimo 4 caracteres"
-                        exibirMensagemValidacao={senha && !validarSenha(senha)}
-                       />
+        if (!validarFormulario())
+            return;
 
-                       <Botao 
-                            texto="Login"
-                            tipo="submit"
-                            desabilitado={!validarFormulario()}
-                            />
-                    </form>
+        setEstaSubmetendo(true);
 
-                    <div className="rodapePaginaPublica">
-                        <p>Não possui uma conta?</p>
-                        <Link href="/cadastro"> Faça seu cadastro agora</Link>
-                    </div>
+        try {
+            const corpoRequisicaoLogin = {
+                email,
+                senha
+            }
+            await usuarioService.login(corpoRequisicaoLogin);
 
 
-                </div>
-        </section>
-    )
+            console.log("Sucesso!")
+        }
+        catch (error) {
+            alert(
+                "Erro ao realizar o login. " + error?.response?.data?.erro)
+        }
+        finally {
+            setEstaSubmetendo(false);
+        }
+    }
+
+
+return (
+    <section className={'paginaLogin paginaPublica'}>
+        <div className="logoContainer">
+            <Image
+                src={imagemLogo}
+                alt="logoTipo"
+                layout="fill"
+                className="logo"
+            />
+        </div>
+
+        <div className="conteudoPaginaPublica">
+            <form onSubmit={aoSubmeterFormulario}>
+                <InputPublico
+                    imagem={imagemEnvelope}
+                    texto="E-mail"
+                    tipo="email"
+                    aoAlterarValor={(event) => setEmail(event.target.value)}
+                    valor={email}
+                    mensagemValidacao="O endereço informado é inválido"
+                    exibirMensagemValidacao={email && !validarEmail(email)}
+                />
+
+                <InputPublico
+                    imagem={imagemChave}
+                    texto="Senha"
+                    tipo="password"
+                    aoAlterarValor={(event) => setSenha(event.target.value)}
+                    valor={senha}
+                    mensagemValidacao="A senha deve ter no mínimo 4 caracteres"
+                    exibirMensagemValidacao={senha && !validarSenha(senha)}
+                />
+
+                <Botao
+                    texto="Login"
+                    tipo="submit"
+                    desabilitado={!validarFormulario() && estaSubmetendo}
+                />
+            </form>
+
+            <div className="rodapePaginaPublica">
+                <p>Não possui uma conta?</p>
+                <Link href="/cadastro"> Faça seu cadastro agora</Link>
+            </div>
+
+
+        </div>
+    </section>
+)
 }

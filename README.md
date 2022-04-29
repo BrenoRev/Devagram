@@ -1,5 +1,14 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Devagram, O clone do instagram.
 
+ <p>Tecnologias</p>
+        <ul>
+  <li>React</li>
+  <li>Next.js</li>
+  <li>Axios</li>
+  <li>Sass</li>
+        </ul>
+<h5>
+  
 ## Getting Started
 
 First, run the development server:
@@ -12,23 +21,17 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+  <br>
+<details>
+  <br>
+  <summary><b>Project's Images</b></summary>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+  <h3> Desktop </h3>
+  ![image](https://user-images.githubusercontent.com/84048306/165886359-3a0369af-d8b3-4a1d-acf2-5a67f57320db.png)
+  ![image](https://user-images.githubusercontent.com/84048306/165886367-f5c98b17-4cca-411c-b356-37ac1d70b8fc.png)
+  <h3> Mobile </h3>
+  ![image](https://user-images.githubusercontent.com/84048306/165886472-3d7d45fb-76b0-4016-b585-56226c3da1a1.png)
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+</details>

@@ -2,14 +2,15 @@
 @import 'variaveis.scss';
 @import '../components/botao/botao.scss';
 @import '../components/avatar/avatar.scss';
+@import './paginaPublica.scss';
+@import '../components/inputPublico/inputPublico.scss';
 
-body {
-    padding : 0;
+html, #__next, body {
+    height: 100%;
     margin: 0;
 }
 
 a {
-    color: inherit;
     text-decoration: none;
 }
 
@@ -21,4 +22,22 @@ a {
 
 .oculto {
     display: none;
+}
+
+input {
+    &::placeholder {
+        color: $cinza2;
+        opacity: 1;
+    }
+
+    &::-ms-input-placeholder {
+        color: $cinza2;
+        opacity: 1;
+    }
+
+    &:-ms-input-placeholder {
+        color: $cinza2;
+        opacity: 1;
+    }
+
 }

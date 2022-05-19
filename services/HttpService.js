@@ -1,14 +1,17 @@
 import axios from 'axios';
 
+
 export default class HttpService {
     constructor(){
         this.axios = axios.create({
-            baseURL: 'https://devagram-nodejs-next.vervel.app/api',
+            baseURL: process.env.NEXT_PUBLIC_API_URL,
         });
     }
-        post(url, data){
-            this.axios.post(url, data);
-        }
+
+    post(url, data){
+        console.log(process.env.NEXT_PUBLIC_API_URL)
+        this.axios.post(url, data);
+    }
 
 
 

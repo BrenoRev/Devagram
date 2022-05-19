@@ -34,7 +34,7 @@ export default function Login() {
 
         try {
             const corpoRequisicaoLogin = {
-                email,
+                login: email,
                 senha
             }
             await usuarioService.login(corpoRequisicaoLogin);

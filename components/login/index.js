@@ -43,6 +43,7 @@ export default function Login() {
             console.log("Sucesso!")
         }
         catch (error) {
+            console.log(error);
             alert(
                 "Erro ao realizar o login. " + error?.response?.data?.erro)
         }

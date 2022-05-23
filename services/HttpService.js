@@ -6,13 +6,24 @@ export default class HttpService {
         this.axios = axios.create({
             baseURL: process.env.NEXT_PUBLIC_API_URL,
         });
+
+        this.axios.interceptors.request.use((config) => {
+            const token = localStorage.getItem('token');
+            if(token){
+                config.headers.Authorization = `Bearer ${token}`;
+            }
+
+            return config;
+        })
     }
 
     post(url, data){
-        console.log(process.env.NEXT_PUBLIC_API_URL)
-        this.axios.post(url, data);
+        return this.axios.post(url, data);
     }
 
+    get(url){
+        return this.axios.get(url);
+    }
 
 
 }

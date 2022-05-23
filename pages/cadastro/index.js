@@ -12,6 +12,7 @@ import UsuarioService from '../../services/UsuarioService';
 import { validarEmail, validarSenha, validarConfirmacaoSenha, validarNome } from '../../utils/validadores';
 import { useState } from 'react';
 import React from 'react';
+import { useRouter } from 'next/router';
 
 export default function Cadastro() {
 
@@ -21,6 +22,7 @@ export default function Cadastro() {
     const [confirmarSenha, setConfirmarSenha] = useState('');
     const [imagem, setImagem] = useState('');
     const [estaSubmetendo, setEstaSubmetendo] = useState(false);
+    const router = useRouter();
 
     const validarFormulario = () => {
         return (
@@ -53,8 +55,8 @@ export default function Cadastro() {
             }
 
             await usuarioService.cadastrar(corpoRequisicaoCadastro);
-
-            console.log("Sucesso!")
+            await usuarioService.login({login: email, senha});
+            router.push('/');
         }
         catch(error) {
             alert(

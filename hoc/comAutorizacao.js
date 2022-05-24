@@ -1,4 +1,8 @@
-import usuarioService from "../services/UsuarioService";
+import { useRouter } from "next/router";
+import Cabecalho from "../components/layout/Cabecalho";
+import UsuarioService from "../services/UsuarioService";
+
+const usuarioService = new UsuarioService();
 
 export default function comAutorizacao(Componente) {
     return (props) => {
@@ -11,7 +15,12 @@ export default function comAutorizacao(Componente) {
                 return null;
             }
 
-            return <Componente {...props} />
+            return (
+                <>
+                <Cabecalho/>
+                <Componente {...props} />
+                </>
+            )
         }
 
         return null;

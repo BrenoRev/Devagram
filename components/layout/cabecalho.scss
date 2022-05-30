@@ -14,7 +14,7 @@
 
         .barraPesquisa {
             position: relative;
-            flex: 1;
+            //flex: 1;
             margin-left: 16px;
             display: flex;
             align-items: center;
@@ -36,7 +36,42 @@
                 font-family: $fontLight;
                 padding: 8px 8px 8px 32px;
                 border-radius: 4px;
+                color: $corPrimaria;
+
+                &:focus {
+                    border: 1px solid $corPrimaria;
+                }
             }
         }
     }
+    
+    @media screen and (min-width: $desktopBreakpoint){
+        background-color: $branco;
+        border: none;
+    
+        .conteudoCabecalhoPrincipal {
+            max-width: 60%;
+            margin: auto;
+            align-items: center;
+            justify-content: center;
+
+            .barraPesquisa {
+                flex: 0.6;
+                margin: 0px 5px 0px 40px;
+
+                input {
+                    width: 100%;
+                }
+            }
+
+            .barraNavegacao {
+                ul {
+                    li {
+                        margin: 0px 0px 0px 20px;
+                    }
+                }
+            }
+        }
+}
+
 }

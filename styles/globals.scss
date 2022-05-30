@@ -52,6 +52,19 @@ input {
     margin-bottom: 10px;
 }
 
+.barraNavegacao {
+    ul {
+        display: flex;
+        justify-content: space-around;
+        padding: 0;
+        margin: 10px 0px;
+        li {
+            list-style: none;
+            cursor: pointer ;
+        }
+    }
+}
+
 .desktop {
     @media screen and (min-width : $desktopBreakpoint) {
         display: block;

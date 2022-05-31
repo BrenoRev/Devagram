@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 import logoHorizontalImg from '../../public/images/logoHorizontal.svg'
 import imagemLupa from '../../public/images/lupa.svg'
@@ -10,7 +11,7 @@ import UsuarioService from '../../services/UsuarioService'
 export default function Cabecalho() {
 
     const usuarioService = new UsuarioService();
-
+    const router = useRouter();
     const [resultadoPesquisa, setResultadoPesquisa] = useState([]);
     const [termoPesquisado, setTermoPesquisado] = useState([]);
       
@@ -34,15 +35,21 @@ export default function Cabecalho() {
     
 
     const aoClicarResultadoPesquisa = (id) => {
-        console.log('clicou no resultado da pesquisa', {id});
+        setResultadoPesquisa([]); 
+        setTermoPesquisado('');
+        router.push('/perfil/' + id);
     };
 
+    const redirecionarParaHome = () => {
+        router.push('/');
+    }
     
     return (
         <header className='cabecalhoPrincipal'>
             <div className='conteudoCabecalhoPrincipal'>
                 <div className='logoCabecalhoPrincipal'>
                     <Image 
+                        onClick={redirecionarParaHome}
                         src={logoHorizontalImg}
                         alt='Logo da empresa'
                         layout='fill'

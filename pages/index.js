@@ -8,7 +8,7 @@ const usuarioService = new UsuarioService();
 
 export default function Index() {
 
-  const [estaAutenticado, setEstaAutenticado] = useState();
+  const [estaAutenticado, setEstaAutenticado] = useState(null);
 
   useEffect(() => {
     function isAutenticated() {

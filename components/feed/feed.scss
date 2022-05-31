@@ -84,6 +84,7 @@
             padding: 0px 12px;
             width: 100%;
             margin-bottom: 16px ;
+
             textarea {
                 resize: none;
                 flex: 1;
@@ -94,9 +95,38 @@
                 color: $cinza2;
             }
         }
+    }
         @media screen and (min-width: $desktopBreakpoint) {
             padding-top: 8px;
+
+            .postagem {
+                .avatar {
+                    width: 42px;
+                    height: 42px;
+                }
+
+                .rodapeDaPostagem {
+                    .acoesDoRodapeDaPostagem {
+                        > span {
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                .containerFazerComentario {
+                    margin-top: 12px;
+
+                    .btnPublicacao {
+                        background-color: transparent;
+                        color: $corPrimaria;
+                        outline: none;
+                        border: none;
+                        font-size: 12px;
+                        font-family: $fontBold;
+                        cursor: pointer;
+                    }
+                }
+            }
         }
 
     }
-}

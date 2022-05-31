@@ -12,9 +12,9 @@ export default class HttpService {
             if(token){
                 config.headers.Authorization = `Bearer ${token}`;
             }
-
             return config;
         })
+        
     }
 
     post(url, data){

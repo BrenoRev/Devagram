@@ -5,39 +5,31 @@ import logoHorizontalImg from '../../public/images/logoHorizontal.svg'
 import imagemLupa from '../../public/images/lupa.svg'
 import Navegacao from './Navegacao';
 import ResultadoPesquisa from './ResultadoPesquisa';
+import UsuarioService from '../../services/UsuarioService'
+
 export default function Cabecalho() {
+
+    const usuarioService = new UsuarioService();
 
     const [resultadoPesquisa, setResultadoPesquisa] = useState([]);
     const [termoPesquisado, setTermoPesquisado] = useState([]);
-
-    const aoPesquisar= (e) => {
+      
+    const aoPesquisar= async (e) => {
+      
         setTermoPesquisado(e.target.value);
         setResultadoPesquisa([]);
 
-        if(termoPesquisado.length < 3) {
+        if(e.target.value.length < 3) {
             return;
         }
 
-            setResultadoPesquisa([
-                {
-                    avatar: '',
-                    nome: 'Breno',
-                    email: 'brenosilva@gmail.com',
-                    _id: '12345'
-                },
-                {
-                    avatar: '',
-                    nome: 'Eliane',
-                    email: 'eliane123@gmail.com',
-                    _id: '74567'
-                },
-                {
-                    avatar: '',
-                    nome: 'Julia',
-                    email: 'julia123@gmail.com',
-                    _id: '234234'
-                }
-            ])
+        try {
+            const { data } = await usuarioService.pesquisar(termoPesquisado);
+            setResultadoPesquisa(data);
+        } catch (error) {
+            alert('Erro ao pesquisar usuário. ' + error?.response?.data?.erro);
+        }
+
     }
     
 

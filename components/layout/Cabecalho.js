@@ -22,6 +22,7 @@ export default function Cabecalho() {
 
         if(e.target.value.length < 3) {
             return;
+            setResultadoPesquisa([]);
         }
 
         try {

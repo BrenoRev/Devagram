@@ -19,11 +19,14 @@ export default function Postagem({
     id,
     descricao,
     comentarios,
-    usuarioLogado
+    usuarioLogado,
+    curtidas
 }) {
 
     const [comentariosPostagem, setComentariosPostagem] = useState(comentarios);
     const [deveExibirSecaoParaComentar, setDeveExibirSecaoParaComentar] = useState(false);
+    const [curtidasPostagem, setCurtidasPostagem] = useState(curtidas);
+
     const tamanhoLimiteDescricao = window.innerWidth / 4;
 
     const comentar = async (comentario) => {
@@ -47,6 +50,29 @@ export default function Postagem({
 
     const obterImagemComentario = () => {
         return deveExibirSecaoParaComentar ? imgComentarioAtivo : imgComentarioCinza; 
+    }
+
+    const obterImagemCurtida = () => {
+        return curtidasPostagem.includes(usuarioLogado.id) ? imgCurtido : imgCurtir; 
+    }
+
+    const usuarioLogadoCurtiuPostagem = () => {
+        return curtidasPostagem.includes(usuarioLogado.id);
+    }
+
+    const alterarCurtida = async () => {
+        try {
+            await feedService.alterarCurtida(id);
+
+            if(usuarioLogadoCurtiuPostagem()){
+                setCurtidasPostagem(curtidasPostagem.filter(idUsuarioQueCurtiu => idUsuarioQueCurtiu !== usuarioLogado.id));
+            }else{
+                setCurtidasPostagem([...curtidasPostagem, usuarioLogado.id]);
+            }
+             
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const [tamanhoAtualDaDescricao, setTamanhoAtualDaDescricao] = useState(
@@ -77,11 +103,11 @@ export default function Postagem({
             <div className='rodapeDaPostagem'>
                 <div className='acoesDoRodapeDaPostagem'>
                     <Image
-                        src={imgCurtir}
+                        src={obterImagemCurtida()}
                         alt='Curtir'
                         width={20}
                         height={20}
-                        onClick={() => console.log('Curtir')}
+                        onClick={alterarCurtida}
                     />
                     <Image
                         src={obterImagemComentario()}
@@ -92,7 +118,7 @@ export default function Postagem({
                     />
 
                     <span className='quantidadeCurtidas'>
-                        Curtido por <strong>32 pessoas</strong>
+                        Curtido por <strong>{curtidasPostagem.length}</strong>
                     </span>
                 </div>
 

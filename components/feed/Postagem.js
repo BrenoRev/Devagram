@@ -8,19 +8,34 @@ import imgCurtido from '../../public/images/curtido.svg'
 import imgComentarioAtivo from '../../public/images/comentarioAtivo.svg'
 import imgComentarioCinza from '../../public/images/comentarioCinza.svg'
 import { FazerComentario } from './FazerComentario'
+import FeedService from '../../services/FeedService'
 
 
+const feedService = new FeedService()
 
 export default function Postagem({
     usuario,
     fotoDoPost,
+    id,
     descricao,
     comentarios,
     usuarioLogado
 }) {
 
+    const [comentariosPostagem, setComentariosPostagem] = useState(comentarios);
     const [deveExibirSecaoParaComentar, setDeveExibirSecaoParaComentar] = useState(false);
     const tamanhoLimiteDescricao = window.innerWidth / 4;
+
+    const comentar = async (comentario) => {
+        try {
+            await feedService.adicionarComentario(id, comentario);
+            setDeveExibirSecaoParaComentar(false);
+            setComentariosPostagem([...comentariosPostagem, 
+                {nome: usuarioLogado.nome, mensagem: comentario}]);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const descricaoMaiorQueLimite = () => {
         return descricao.length > tamanhoAtualDaDescricao;
@@ -28,6 +43,10 @@ export default function Postagem({
 
     const exibirDescricaoCompleta = () => {
         setTamanhoAtualDaDescricao(Number.MAX_SAFE_INTEGER);
+    }
+
+    const obterImagemComentario = () => {
+        return deveExibirSecaoParaComentar ? imgComentarioAtivo : imgComentarioCinza; 
     }
 
     const [tamanhoAtualDaDescricao, setTamanhoAtualDaDescricao] = useState(
@@ -65,7 +84,7 @@ export default function Postagem({
                         onClick={() => console.log('Curtir')}
                     />
                     <Image
-                        src={imgComentarioCinza}
+                        src={obterImagemComentario()}
                         alt='Comentar'
                         width={20}
                         height={20}
@@ -92,7 +111,7 @@ export default function Postagem({
                 </div>
 
                 <div className='comentariosDaPublicacao'>
-                    {comentarios.map( (comentario, indice) => (
+                    {comentariosPostagem.map( (comentario, indice) => (
                         <div className='comentario' key={indice}>
                             <strong className='nomeUsuario'>{comentario.nome}</strong>
                             <p className='descricao'>{comentario.mensagem}</p>
@@ -105,6 +124,7 @@ export default function Postagem({
                 deveExibirSecaoParaComentar && (
                     <FazerComentario 
                         usuarioLogado={usuarioLogado}
+                        comentar={comentar}
                     />
                 )
             }

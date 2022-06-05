@@ -34,7 +34,8 @@ export default function CabecalhoComAcoes({
 
             {elementoDireita && (
                 <button 
-                type='button'>
+                    type='button'
+                    className='btnAcaoDireita'>
                     {elementoDireita}
                 </button>
             )}

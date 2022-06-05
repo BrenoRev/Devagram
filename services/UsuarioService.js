@@ -38,6 +38,10 @@ export default class UsuarioService extends HttpService {
         return this.put('/seguir' + idUsuario);
     }
 
+    async logout() {
+        localStorage.clear();
+    }
+
     obterInformacoesDoUsuarioLogado() {
         return {
             id: localStorage.getItem('id'),

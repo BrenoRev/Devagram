@@ -10,17 +10,44 @@
         flex: 1;
     }
 
+    .cabecalhoComAcoesTextoEsquerda {
+        font-size: 12px;
+        color: $cinza3;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
     .btnAcaoDireita {
         border: none;
         background-color: transparent;
         padding: 0;
         margin: 0;
         cursor: pointer;
+        color: $corPrimaria;
+        font-family: $fontBold;
+        font-size: 12px;
     }
 
     @media screen and (min-width: $desktopBreakpoint) {
         h3 {
             font-size: 18px;
+        }
+
+        .conteudoPaginaEditarPerfil {
+           flex: 1;
+           
+           .edicaoAvatar {
+               .avatar {
+                    width: 120px;
+                    height: 120px;
+               }
+
+               span {
+                   font-size: 14px;
+               }
+           }
+
         }
     }
 }

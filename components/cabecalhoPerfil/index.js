@@ -97,7 +97,7 @@ export default function CabecalhoPerfil({usuario, estaNoPerfilPessoal}) {
                 />
          
 
-            <hr className='bordaCabecalhoPerfil'/>
+            <hr className='linhaDivisoria'/>
 
             <div className='statusPerfil'>
                 <Avatar src={usuario.avatar}/>

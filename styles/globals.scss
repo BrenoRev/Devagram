@@ -73,6 +73,20 @@ strong {
     font-family: $fontBold;
 }
 
+.linhaDivisoria {
+    margin: 0;
+    border: none;
+    background-color: $cinza1;
+    height: 0.5px;
+
+    @media screen and (min-width: $desktopBreakpoint) {
+        margin: 0 auto;
+        width: 95%;
+    }
+
+}
+
+
 body {
     @media screen and (min-width: $desktopBreakpoint) {
         background-color: $cinza5;

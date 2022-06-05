@@ -43,7 +43,7 @@ export default function Feed({ usuarioLogado }) {
                     nome: 'Julia Paulino',
                     avatar: null
                 },
-                fotoDoPost: 'https://scontent.frec21-1.fna.fbcdn.net/v/t39.30808-6/240120053_2627950440839977_3250807845213116257_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeELfu_s08r7XwHGWUXU5NRB9NG60R89yMj00brRHz3IyOwUqmRX0_o4kO6uqN8EpBog0P9Oowh9yWDlFAxmFJ2E&_nc_ohc=e0a_r8aj68QAX-SpDET&_nc_ht=scontent.frec21-1.fna&oh=00_AT9dFj4PILQzmrUoK-M60T8mpedvKACXEdYmXWzMoFgNLg&oe=629A4F81',
+                fotoDoPost: 'https://scontent.frec21-1.fna.fbcdn.net/v/t1.6435-9/138944255_2485915888376767_8721560643563055494_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_eui2=AeFd5eQLpbh5v5_x3_pfEIRA80WmuOrnfoTzRaa46ud-hCPItOtOrXe0iyPgWNzVtp8ugHeGPniRTSzRsi-lPedG&_nc_ohc=8hfaYfiRySIAX_X7UHe&_nc_oc=AQlXjvX3wXfhq_3AqUP8pOYMIw_S3vqFyrGX7_exrk2PIs5OD5IX3yDRVjKSKoCT8V0&_nc_ht=scontent.frec21-1.fna&oh=00_AT8lqVHWzCrEef_SMqZMWdU5nPX_loGafaaG2MoGJAQ7wA&oe=62C37902',
                 descricao: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
                 curtidas: [],
                 comentarios: [{

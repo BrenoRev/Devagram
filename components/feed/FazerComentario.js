@@ -14,7 +14,7 @@ export function FazerComentario({ usuarioLogado, comentar }) {
 
     const aoPressionarQualquerTecla = (e) => {
         if(e.key === 'Enter'){
-            manipularComentario();
+            fazerComentario();
         }
     }
 

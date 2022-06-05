@@ -1,6 +1,6 @@
 .cabecalhoComAcoes {
     display: flex;
-    border-bottom: 0.5px solid $cinza1;
+    // border-bottom: 0.5px solid $cinza1;
     padding-left: 20px;
     padding-right: 20px;
     
@@ -11,5 +11,9 @@
         flex: 1;
     }
 
-
+    @media screen and (min-width: $desktopBreakpoint) {
+        h3 {
+            font-size: 18px;
+        }
+    }
 }

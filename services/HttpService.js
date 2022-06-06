@@ -5,6 +5,10 @@ export default class HttpService {
     constructor(){
         this.axios = axios.create({
             baseURL: process.env.NEXT_PUBLIC_API_URL,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            }
+            
         });
 
         this.axios.interceptors.request.use((config) => {

@@ -38,7 +38,7 @@ export default class UsuarioService extends HttpService {
     }
 
     async alternarSeguir(idUsuario) {
-        return this.put('/seguir' + idUsuario);
+        return this.put('/seguir?id=' + idUsuario);
     }
 
     async logout() {

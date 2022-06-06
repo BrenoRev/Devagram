@@ -21,9 +21,7 @@ function Perfil({usuarioLogado}) {
                     usuarioLogado.id : router.query.id
                     );
                 
-                setUsuario({
-                    nome: data.nome,
-                    });
+                setUsuario(data);
 
                     console.log(data);
             })();

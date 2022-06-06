@@ -7,10 +7,12 @@ import Botao from "../botao";
 import Link from "next/link";
 import { validarEmail, validarSenha } from "../../utils/validadores"
 import { useState } from "react";
+import { useRouter } from "next/router";
+
 import UsuarioService from "../../services/UsuarioService";
 
 export default function Login() {
-
+    const router = useRouter();
     const usuarioService = new UsuarioService();
 
     const [email, setEmail] = useState('');
@@ -39,6 +41,7 @@ export default function Login() {
             }
             await usuarioService.login(corpoRequisicaoLogin);
 
+            router.replace('/perfil/eu');
         }
         catch (error) {
             alert(

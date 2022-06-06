@@ -14,7 +14,7 @@ const validarConfirmacaoSenha = (senha, confirmacaoSenha) => {
     return validarSenha(senha) && senha === confirmacaoSenha;
 }
 
-export default{
+export {
     validarNome,
     validarEmail,
     validarSenha,

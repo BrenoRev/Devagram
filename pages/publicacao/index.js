@@ -4,29 +4,80 @@ import comAutorizacao from "../../hoc/comAutorizacao";
 import CabecalhoComAcoes from "../../components/cabecalhoComAcoes";
 import UploadImagem from "../../components/uploadImagem";
 import imagemPublicacao from "../../public/images/imagemPublicacao.svg";
+import setaEsquerda from "../../public/images/setaEsquerda.svg";
 import Botao from "../../components/botao";
 
 function Publicacao () {
 
     const [imagem, setImagem] = useState();
     const [inputImagem, setInputImagem] = useState();
+    const [etapaAtual, setEtapaAtual] = useState(1);
+    const [descricao, setDescricao] = useState()
+    const estaNaEtapaUm = () => etapaAtual === 1;
+
+    const obterTextoEsquerdaCabecalho = () => {
+        if(estaNaEtapaUm() && imagem) {
+            return 'Cancelar';
+        }
+
+        return '';
+    }
+
+    const obterTextoDireitaCabecalho = () => {
+        if(!imagem) {
+            return '';
+        }
+
+        if(estaNaEtapaUm()) {
+            return 'Avançar';
+        }
+
+        return 'Compartilhar';
+    }
+
+    const aoClicarAcaoEsquerdaCabecalho = () => {
+        if(estaNaEtapaUm() && imagem) {
+            setImagem(null);
+            return;
+        }
+
+        setEtapaAtual(1);
+
+    }
+
+    const aoClicarAcaoDireitaCabecalho = () => {
+        setEtapaAtual(2);
+    }
+
+    const obterClassNameCabecalho = () => {
+        if(estaNaEtapaUm()) {
+            return 'primeiraEtapa';
+        }
+
+        return 'segundaEtapa';
+    }
 
     return (
         <div className="paginaPublicacao largura30pctDesktop">
             <CabecalhoComAcoes 
-                textoEsquerda=''
-                elementoDireita={''}
+                className={obterClassNameCabecalho()}
+                iconeEsquerda={estaNaEtapaUm() ? null : setaEsquerda}
+                textoEsquerda={obterTextoEsquerdaCabecalho()}
+                elementoDireita={obterTextoDireitaCabecalho()}
+                aoClicarAcaoEsquerda={aoClicarAcaoEsquerdaCabecalho}
+                aoClicarElementoDireita={aoClicarAcaoDireitaCabecalho}
                 titulo='Nova publicação'
             />
 
             <hr className='linhaDivisoria'/>
 
             <div className="conteudoPaginaPublicacao">
-                <div className="primeiraEtapa">
+                { estaNaEtapaUm() ? (
+                    <div className="primeiraEtapa">
                     <UploadImagem 
                         setImagem={setImagem}
                         aoSetarAReferencia={setInputImagem}
-                        imagemPreviewClassName={!imagem ? 'previewImagemPublicacao' :  'previewImagemSelecionar'}
+                        imagemPreviewClassName={!imagem ? 'previewImagemPublicacao' :  'previewImagemSelecionada'}
                         imagemPreview={imagem?.preview || imagemPublicacao.src}
                     />
 
@@ -38,6 +89,28 @@ function Publicacao () {
                         
                     />
                 </div>
+                ) : (
+                    <>
+                        <div className="segundaEtapa">
+                            <UploadImagem
+                                setImagem={setImagem}
+                                imagemPreview={imagem?.preview}
+                            />
+
+                            <textarea 
+                                rows={3 }
+                                value={descricao}
+                                placeholder='Escreva uma legenda...'
+                                onChange={(e) => setDescricao(e.target.value)}
+                            ></textarea>
+
+
+                        </div>
+                    
+                        <hr className='linhaDivisoria'/>
+                    </>
+                    )}
+                
                
             </div>   
 

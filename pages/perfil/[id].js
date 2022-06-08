@@ -23,7 +23,7 @@ function Perfil({usuarioLogado}) {
                 
                 setUsuario(data);
 
-                    console.log(data);
+
             })();
         }
     }, [router.query.id])

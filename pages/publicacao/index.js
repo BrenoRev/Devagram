@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 import comAutorizacao from "../../hoc/comAutorizacao";
 import CabecalhoComAcoes from "../../components/cabecalhoComAcoes";
@@ -6,6 +7,12 @@ import UploadImagem from "../../components/uploadImagem";
 import imagemPublicacao from "../../public/images/imagemPublicacao.svg";
 import setaEsquerda from "../../public/images/setaEsquerda.svg";
 import Botao from "../../components/botao";
+import FeedService from '../../services/FeedService';
+
+const feedService = new FeedService();
+
+const limiteDaDescricao = 255;
+const descricaoMinima = 3;
 
 function Publicacao () {
 
@@ -13,6 +20,8 @@ function Publicacao () {
     const [inputImagem, setInputImagem] = useState();
     const [etapaAtual, setEtapaAtual] = useState(1);
     const [descricao, setDescricao] = useState()
+    const router = useRouter();
+
     const estaNaEtapaUm = () => etapaAtual === 1;
 
     const obterTextoEsquerdaCabecalho = () => {
@@ -46,7 +55,12 @@ function Publicacao () {
     }
 
     const aoClicarAcaoDireitaCabecalho = () => {
-        setEtapaAtual(2);
+        if(estaNaEtapaUm()){
+            setEtapaAtual(2);
+            return;
+        }
+
+        publicar();
     }
 
     const obterClassNameCabecalho = () => {
@@ -55,6 +69,31 @@ function Publicacao () {
         }
 
         return 'segundaEtapa';
+    }
+
+    
+    const publicar = async () => {
+        try{
+            if(!validarFormulario){
+                alert('A descrição precisa de pelo menos 3 caracteres e a imagem precisa estar selecionada.')
+                return;
+            }
+            
+            const corpoPublicacao = new FormData();
+            corpoPublicacao.append('descricao', descricao);
+            corpoPublicacao.append('file', imagem.arquivo);
+            await feedService.fazerPublicacao(corpoPublicacao);
+            
+            router.push('/')
+        } catch (error) {
+            alert('Erro ao salvar publicação')
+        }
+    }
+
+    const validarFormulario = () => {
+        return (
+            descricao.length >= descricaoMinima && imagem?.arquivo && descricao.length <= limiteDaDescricao
+        );
     }
 
     return (

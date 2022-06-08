@@ -21,7 +21,7 @@ export default function CabecalhoPerfil({usuario, estaNoPerfilPessoal}) {
         if(!usuario) {
             return;
         }
-        console.log(usuario);
+
         setEstaSeguindoOUsuario(usuario.segueEsseUsuario);
         setQuantidadeSeguidores(usuario.seguidores);
     }, [usuario])

@@ -3,15 +3,16 @@ const validarNome = (nome) => {
 }
 
 const validarEmail = (email) => {
-    return email?.toString().includes('@') && email?.toString().includes('.') && email?.toString().length > 5;
+    const emailStr = email?.toString();
+    return emailStr.length >= 5 && emailStr.includes('@') && emailStr.includes('.');
 }
 
 const validarSenha = (senha) => {
     return senha?.toString().length > 3;
 }
 
-const validarConfirmacaoSenha = (senha, confirmacaoSenha) => {
-    return validarSenha(senha) && senha === confirmacaoSenha;
+const validarConfirmacaoSenha = (senha, confirmacao) => {
+    return validarSenha(senha) && senha === confirmacao;
 }
 
 export {

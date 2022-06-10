@@ -1,102 +1,99 @@
-import Botao from '../../components/botao';
-import InputPublico from '../../components/inputPublico';
-import UploadImagem from '../../components/uploadImagem';
-import Link from 'next/link';
-import Image from 'next/image';
-import imagemLogo from '../../public/images/logo.svg';
-import imagemUsuarioAtivo from '../../public/images/usuarioAtivo.svg';
-import imagemEnvelope from '../../public/images/envelope.svg';
-import imagemChave from '../../public/images/chave.svg';
-import imagemAvatar from '../../public/images/avatar.svg';
-import UsuarioService from '../../services/UsuarioService';
-import { validarEmail, validarSenha, validarConfirmacaoSenha, validarNome } from '../../utils/validadores';
-import { useState } from 'react';
-import React from 'react';
-import { useRouter } from 'next/router';
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import Botao from "../../componentes/botao";
+import InputPublico from "../../componentes/inputPublico";
+import UploadImagem from "../../componentes/uploadImagem";
+import { validarEmail, validarSenha, validarNome, validarConfirmacaoSenha } from "../../utils/validadores";
+import UsuarioService from "../../services/UsuarioService";
+
+import imagemLogo from "../../public/imagens/logo.svg";
+import imagemUsuarioAtivo from "../../public/imagens/usuarioAtivo.svg";
+import imagemEnvelope from "../../public/imagens/envelope.svg";
+import imagemChave from "../../public/imagens/chave.svg";
+import imagemAvatar from "../../public/imagens/avatar.svg";
+import { useRouter } from "next/router";
+
+const usuarioService = new UsuarioService();
 
 export default function Cadastro() {
-
-    const [nome, setNome] = useState('');
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
-    const [confirmarSenha, setConfirmarSenha] = useState('');
-    const [imagem, setImagem] = useState('');
+    const [imagem, setImagem] = useState(null);
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [confirmacaoSenha, setConfirmacaoSenha] = useState("");
     const [estaSubmetendo, setEstaSubmetendo] = useState(false);
     const router = useRouter();
 
     const validarFormulario = () => {
         return (
-            validarEmail(email) 
+            validarNome(nome)
+            && validarEmail(email)
             && validarSenha(senha)
-            && validarConfirmacaoSenha(senha, confirmarSenha)
-            && validarNome(nome) 
-        )
+            && validarConfirmacaoSenha(senha, confirmacaoSenha)
+        );
     }
 
-    const usuarioService = new UsuarioService();
-
-    const aoSubmeterFormulario = async (event) => {
-    
-        event.preventDefault();
-        
-        if(!validarFormulario()) 
+    const aoSubmeter = async (e) => {
+        e.preventDefault();
+        if (!validarFormulario()) {
             return;
+        }
 
         setEstaSubmetendo(true);
 
         try {
-            const corpoRequisicaoCadastro = new FormData();
-            corpoRequisicaoCadastro.append("nome", nome);
-            corpoRequisicaoCadastro.append("email", email);
-            corpoRequisicaoCadastro.append("senha", senha);
-            
-            if(imagem?.arquivo) {
-                corpoRequisicaoCadastro.append("file", imagem.arquivo);
+            const corpoReqCadastro = new FormData();
+            corpoReqCadastro.append("nome", nome);
+            corpoReqCadastro.append("email", email);
+            corpoReqCadastro.append("senha", senha);
+
+            if (imagem?.arquivo) {
+                corpoReqCadastro.append("file", imagem.arquivo);
             }
 
-            await usuarioService.cadastrar(corpoRequisicaoCadastro);
-            await usuarioService.login({login: email, senha});
+            await usuarioService.cadastro(corpoReqCadastro);
+            await usuarioService.login({
+                login: email,
+                senha
+            });
+            
             router.push('/');
-        }
-        catch(error) {
+        } catch (error) {
             alert(
                 "Erro ao cadastrar usuario. " + error?.response?.data?.erro
             );
         }
 
-        finally {
-            setEstaSubmetendo(false);
-        }
+        setEstaSubmetendo(false);
     }
 
     return (
-        <section className={'paginaCadastro paginaPublica'}>
+        <section className={`paginaCadastro paginaPublica`}>
             <div className="logoContainer desktop">
                 <Image
                     src={imagemLogo}
-                    alt="logoTipo"
+                    alt="logotipo"
                     layout="fill"
                     className="logo"
                 />
             </div>
 
             <div className="conteudoPaginaPublica">
-                <form onSubmit={aoSubmeterFormulario}>
-
+                <form onSubmit={aoSubmeter}>
                     <UploadImagem
                         imagemPreviewClassName="avatar avatarPreview"
                         imagemPreview={imagem?.preview || imagemAvatar.src}
                         setImagem={setImagem}
-
                     />
 
                     <InputPublico
                         imagem={imagemUsuarioAtivo}
                         texto="Nome Completo"
                         tipo="text"
-                        aoAlterarValor={(event) => setNome(event.target.value)}
+                        aoAlterarValor={e => setNome(e.target.value)}
                         valor={nome}
-                        mensagemValidacao="O nome deve ter no mínimo 2 caracteres"
+                        mensagemValidacao="O nome precisa de pelo menos 2 caracteres"
                         exibirMensagemValidacao={nome && !validarNome(nome)}
                     />
 
@@ -104,9 +101,9 @@ export default function Cadastro() {
                         imagem={imagemEnvelope}
                         texto="E-mail"
                         tipo="email"
-                        aoAlterarValor={(event) => setEmail(event.target.value)}
+                        aoAlterarValor={e => setEmail(e.target.value)}
                         valor={email}
-                        mensagemValidacao="O endereço informado é inválido"
+                        mensagemValidacao="O e-mail informado é inválido"
                         exibirMensagemValidacao={email && !validarEmail(email)}
                     />
 
@@ -114,9 +111,9 @@ export default function Cadastro() {
                         imagem={imagemChave}
                         texto="Senha"
                         tipo="password"
-                        aoAlterarValor={(event) => setSenha(event.target.value)}
+                        aoAlterarValor={e => setSenha(e.target.value)}
                         valor={senha}
-                        mensagemValidacao="A senha deve ter no mínimo 3 caracteres"
+                        mensagemValidacao="Precisa de pelo menos 3 caracteres"
                         exibirMensagemValidacao={senha && !validarSenha(senha)}
                     />
 
@@ -124,11 +121,12 @@ export default function Cadastro() {
                         imagem={imagemChave}
                         texto="Confirmar Senha"
                         tipo="password"
-                        aoAlterarValor={(event) => setConfirmarSenha(event.target.value)}
-                        valor={confirmarSenha}
+                        aoAlterarValor={e => setConfirmacaoSenha(e.target.value)}
+                        valor={confirmacaoSenha}
                         mensagemValidacao="As senhas precisam ser iguais"
-                        exibirMensagemValidacao={senha && confirmarSenha && !validarConfirmacaoSenha(senha, confirmarSenha)}
+                        exibirMensagemValidacao={confirmacaoSenha && !validarConfirmacaoSenha(senha, confirmacaoSenha)}
                     />
+
                     <Botao
                         texto="Cadastrar"
                         tipo="submit"
@@ -138,12 +136,9 @@ export default function Cadastro() {
 
                 <div className="rodapePaginaPublica">
                     <p>Já possui uma conta?</p>
-                    <Link href="/"> Faça seu login agora</Link>
+                    <Link href="/">Faça seu login agora!</Link>
                 </div>
             </div>
-
-
-
         </section>
-    )
+    );
 }

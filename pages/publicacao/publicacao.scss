@@ -1,44 +1,42 @@
 .paginaPublicacao {
     background-color: $branco;
-    
+
     .cabecalhoComAcoes {
         &.segundaEtapa {
             > span {
                 cursor: pointer;
             }
-            
+
             h3 {
                 padding-left: 17%;
             }
         }
     }
-    
+
     .conteudoPaginaPublicacao {
         .primeiraEtapa {
-            cursor: pointer;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            
+
             .uploadImagemContainer {
                 text-align: center;
 
                 .imagemPreviewContainer {
-                    margin: 30px auto; 
+                    margin: 30px auto;
 
-                    .img {
+                    img {
                         object-fit: cover;
                     }
 
                     .previewImagemPublicacao {
-                        width: 150px;
                         height: 150px;
+                        width: 150px;
                     }
 
                     .previewImagemSelecionada {
+                        height: 250px;
                         width: 250px;
-                        height: 250px; 
                     }
                 }
             }
@@ -52,7 +50,7 @@
 
                 &:hover {
                     border: none;
-                    opacity: 0.9;
+                    opacity: 0.8;
                 }
             }
         }
@@ -66,23 +64,23 @@
                     width: 80px;
                     height: 80px;
 
-                    img{
-                        width: 100%;
+                    img {
                         height: 100%;
+                        width: 100%;
                         object-fit: cover;
                     }
                 }
             }
+
             textarea {
-                margin-left: 16px;
                 border: none;
                 outline: none;
                 resize: none;
+                margin-left: 16px;
                 font-size: 12px;
                 font-family: $fontLight;
                 flex: 1;
                 color: $cinza2;
-
             }
         }
     }
@@ -90,15 +88,18 @@
     @media screen and (min-width: $desktopBreakpoint) {
         display: flex;
         flex-direction: column;
-        height: 80%;
+        height: 100%;
 
         .conteudoPaginaPublicacao {
             .primeiraEtapa {
-                .uploadImagemContainer{
-                    .imagemPreviewContainer{
+                cursor: pointer;
+
+                .uploadImagemContainer {
+                    .imagemPreviewContainer {
                         margin-bottom: 20px;
                     }
                 }
+
                 .textoDragAndDrop {
                     text-align: center;
                     color: $cinza4;
@@ -115,5 +116,5 @@
                 }
             }
         }
-    }    
+    }
 }

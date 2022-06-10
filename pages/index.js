@@ -1,30 +1,25 @@
-import { useState, useEffect } from 'react'
-import Home from '../components/home';
-
-import Login from '../components/login';
-import UsuarioService from '../services/UsuarioService';
+import { useState, useEffect } from "react";
+import Home from "../componentes/home";
+import Login from "../componentes/login";
+import UsuarioService from "../services/UsuarioService";
 
 const usuarioService = new UsuarioService();
-
 export default function Index() {
-
   const [estaAutenticado, setEstaAutenticado] = useState(null);
 
   useEffect(() => {
-    function isAutenticated() {
-      setEstaAutenticado(
-        usuarioService.estaAutenticado()
-      );
-    }
+    setEstaAutenticado(
+      usuarioService.estaAutenticado()
+    );
+  }, []);
 
-    isAutenticated();
-  }, [])
-
-  if(estaAutenticado) {
-    return <Home/>
+  if (estaAutenticado === null) {
+    return null;
   }
 
-  return (
-    <Login/>
-  )
+  if (estaAutenticado) {
+    return <Home />;
+  }
+
+  return <Login aposAutenticacao={() => setEstaAutenticado(true)} />;
 }

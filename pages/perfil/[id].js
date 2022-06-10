@@ -1,51 +1,56 @@
 import { useEffect, useState } from 'react';
+import Feed from '../../componentes/feed';
 import { useRouter } from 'next/router';
-
-import Feed from '../../components/feed';
 import comAutorizacao from '../../hoc/comAutorizacao';
-import CabecalhoPerfil from '../../components/cabecalhoPerfil';
+import CabecalhoPerfil from '../../componentes/cabecalhoPerfil';
 import UsuarioService from '../../services/UsuarioService';
 
 const usuarioService = new UsuarioService();
 
-function Perfil({usuarioLogado}) {
-
-    const [usuario, setUsuario] = useState({})
+function Perfil({ usuarioLogado }) {
+    const [usuario, setUsuario] = useState({});
     const router = useRouter();
 
-     useEffect(() =>{
-         if(router.query.id) {
-         
-            (async () => {
-                const { data } = await usuarioService.obterDadosUsuario(
-                    estaNoPerfilPessoal() ?
-                    usuarioLogado.id : router.query.id
-                    );
-                
-                setUsuario(data);
-                
-            })();
+    const obterPerfil = async (idUsuario) => {
+        try {
+            const { data } = await usuarioService.obterPerfil(
+                estaNoPerfilPessoal()
+                    ? usuarioLogado.id
+                    : idUsuario
+            );
+            return data;
+        } catch (error) {
+            alert(`Erro ao obter o perfil do usuário!`);
         }
-    }, [router.query.id])
-
-    const estaNoPerfilPessoal = () => {
-         return router.query.id === 'eu';
     }
 
+    const estaNoPerfilPessoal = () => {
+        return router.query.id === 'eu';
+    }
+
+    useEffect(async () => {
+        if (!router.query.id) {
+            return;
+        }
+
+        const dadosPerfil = await obterPerfil(router.query.id);
+        setUsuario(dadosPerfil);
+    }, [router.query.id]);
+
     return (
-        <div>
-            <div className='paginaPerfil'>
-                <CabecalhoPerfil 
-                    usuarioLogado={usuarioLogado}
-                    usuario={usuario}
-                    estaNoPerfilPessoal={estaNoPerfilPessoal()}/>
-                <Feed 
-                    usuarioLogado={usuarioLogado}
-                    usuarioPerfil={usuario}
-                />
-            </div>
+        <div className='paginaPerfil'>
+            <CabecalhoPerfil
+                usuarioLogado={usuarioLogado}
+                usuario={usuario}
+                estaNoPerfilPessoal={estaNoPerfilPessoal()}
+            />
+
+            <Feed
+                usuarioLogado={usuarioLogado}
+                usuarioPerfil={usuario}
+            />
         </div>
-    )
-} 
+    );
+}
 
 export default comAutorizacao(Perfil);

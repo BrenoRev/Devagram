@@ -5,21 +5,22 @@
     align-items: center;
     justify-content: center;
     padding: 0 32px;
+    background-color: $branco;
 
     .logoContainer {
         position: relative;
-        height: 100px;
+        height: 13%;
         width: 100%;
-        margin-bottom: 56px;
+        margin-bottom: 50px;
     }
-    
+
     .conteudoPaginaPublica {
         width: 100%;
     }
-
+    
     .btn {
         margin-top: 15px;
-        padding: 12px;
+        padding: 10px;
     }
 
     .rodapePaginaPublica {
@@ -37,11 +38,11 @@
         }
     }
 
-    @media screen and (min-width: $desktopBreakpoint){
+    @media screen and (min-width: $desktopBreakpoint) {
         flex-direction: row;
         padding: 0 140px;
         font-size: 18px;
-
+        
         .logoContainer {
             height: 30%;
             flex: 2;
@@ -62,8 +63,20 @@
         }
 
         .btn {
-            padding: 20px;
+            padding: 18px;
             font-size: 18px;
+        }
+
+        .rodapePaginaPublica {
+            p, a {
+                font-size: 18px;
+            }
+        }
+
+        .inputPublico {
+            input {
+                font-size: 16px;
+            }
         }
     }
 }

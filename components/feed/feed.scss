@@ -1,3 +1,15 @@
+::-webkit-scrollbar {
+    width:5px;
+    }
+     
+    /* aqui é para personalizar o fundo da barra, neste caso estou colocando um fundo cinza escuro*/
+    ::-webkit-scrollbar-track {
+    background: $cinza1;
+    }
+    ::-webkit-scrollbar-thumb {
+    background: $corPrimaria;
+    }
+
 .feedContainer{
     padding-bottom: 60px;
     background-color: $branco;
@@ -36,7 +48,7 @@
 
         .rodapeDaPostagem {
             padding: 5px 16px;
-             
+
             strong.nomeUsuario {
                 font-size: 12px;
                 float: left;
@@ -75,6 +87,11 @@
                         font-size: 10px;
                     }
                 }
+            }
+
+            .comentariosDaPublicacao {
+                max-height: 100px;
+                overflow-y: auto;
             }
         }
 

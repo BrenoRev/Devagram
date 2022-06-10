@@ -35,6 +35,7 @@ export default function Feed({ usuarioLogado, usuarioPerfil }) {
     useEffect( () => {
 
         (async () => {
+            console.log('here')
             const postagens = await getDataFromFeedService();
 
             setListaDePostagens(postagens);

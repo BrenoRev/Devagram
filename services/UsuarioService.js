@@ -25,6 +25,7 @@ export default class UsuarioService extends HttpService {
     async atualizarPerfil(dados) {
         return this.put('/usuario', dados);
     }
+    
     estaAutenticado(){
         return localStorage.getItem('token') !== null;
     }

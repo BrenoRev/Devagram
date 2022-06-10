@@ -14,7 +14,8 @@ function Perfil({usuarioLogado}) {
     const router = useRouter();
 
      useEffect(() =>{
-         if(router.query.id){
+         if(router.query.id) {
+         
             (async () => {
                 const { data } = await usuarioService.obterDadosUsuario(
                     estaNoPerfilPessoal() ?
@@ -22,8 +23,7 @@ function Perfil({usuarioLogado}) {
                     );
                 
                 setUsuario(data);
-
-
+                
             })();
         }
     }, [router.query.id])
